@@ -14,7 +14,7 @@ namespace StringCalculator
            
             if (numbers.Length != 0)
             {
-                var splittedNumbers = numbers.Split('\n', ',');
+                var splittedNumbers = SplitString(numbers);
 
                 foreach (var number in splittedNumbers)
                 {
@@ -23,6 +23,26 @@ namespace StringCalculator
             }
 
             return result;
+        }
+
+        private string[] SplitString(string str)
+        {
+            string[] splittedString = new string [0];
+
+            if (str.Contains("//"))
+            {
+                str = str.Replace("//", "");
+                int beforeNewLineSign = str.IndexOf('\n');
+
+                string delimiter = str.Substring(0, beforeNewLineSign);
+                splittedString = str.Split(new []{ "\n",  delimiter }, 
+                    StringSplitOptions.RemoveEmptyEntries);
+            }
+            else
+            {
+                splittedString = str.Split('\n', ',');
+            }
+            return splittedString;
         }
     }
 }
